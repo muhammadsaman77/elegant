@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class CardCatalog extends Component
+class CardCatalogTest extends Component
 {
     public $title;
     public $description;
@@ -23,7 +23,7 @@ class CardCatalog extends Component
 
     public function render()
     {
-        return view('components.card-catalog');
+        return view('components.card-catalog-test');
     }
 }
 

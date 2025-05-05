@@ -1,117 +1,179 @@
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+
+
 <style>
-    .venue-item {
-        border-radius: 15px;
-        border: 1px solid #F0ECE5;
-        padding: 1.2rem;
-        display: flex;
-        background-color: #fff;
-        box-shadow: 0 5px 10px #B6BBC4;
-        transition: transform 0.2s ease;
-        margin-bottom: 1.5rem;
-    }
+.card-custom {
+    width: 100%;
+    max-width: 380px;
+    border: 5px solid #B6BBC4;
+    border-radius: 20px;
+    overflow: hidden;
+    font-family: 'Lora', serif;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 
-    .venue-item:hover {
-        transform: scale(1.01);
-    }
+}
 
-    .venue-item img {
-        object-fit: cover;
-        border-radius: 10px;
-    }
+.card-custom:hover {
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    transform: translateY(-4px);
+    transition: 0.3s ease;
+}
 
-    .venue-info {
-        padding-left: 1rem;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+.card-custom .image-wrapper img {
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
 
-    .venue-info h3 {
-        margin-bottom: 0.3rem;
-        font-size: 1.3rem;
-        font-weight: 700;
-        color: #444;
-    }
+.card-custom:hover .image-wrapper img {
+    transform: scale(1.1);
+    filter: brightness(0.75);
+}
 
-    .venue-info span {
-        text-align: center;
-        background-color: #333;
-        padding: 0.3rem;
-        border-radius: 10px;
-    }
+.image-wrapper {
+    position: relative;
+    height: 380px;
+    background-color: #000;
+}
 
-    .venue-info p {
-        margin-bottom: 0.2rem;
-    }
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.65);
+}
 
-    .venue-info .text-muted {
-        font-size: 0.9rem;
-        color: #444;
-    }
+.corner-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #161A30;
+    padding: 8px 35px 8px 12px;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+}
 
-    .venue-info .fw-bold {
-        font-size: 1rem;
-        font-weight: bold;
-        color: #161A30;
-    }
+.corner-label h2 {
+    margin: 0;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+}
 
-    .venue-actions {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-    }
+.corner-cut {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 60px;
+    background-color: #161A30;
+    clip-path: polygon(100% 0, 100% 100%, 15% 100%);
+    z-index: 2;
+}
 
-    .venue-actions .btn {
-        border-radius: 8px;
-        font-size: 0.85rem;
-        padding: 0.45rem 0.8rem;
-    }
+/* Overlay konten di atas gambar */
+.card-content-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1.2rem 1.2rem;
+    width: 100%;
+    z-index: 3;
+    color: white;
+}
 
-    .btn-outline-dark {
-        border: 1px solid #161A30;
-        color: #161A30;
-    }
+.card-content-overlay .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
 
-    .btn-outline-dark:hover {
-        background-color: #B6BBC4;
-        color: #fff;
-    }
+.card-content-overlay .price span {
+    font-size: 0.9rem;
+    font-weight: normal;
+}
 
-    .btn-book {
-        background-color: #161A30;
-        color: #fff;
-    }
+.card-content-overlay .badges {
+    margin-bottom: 0.5rem;
+}
 
-    .btn-book:hover {
-        background-color: #B6BBC4;
-        color: #fff;
-    }
+.card-content-overlay .badges .badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-right: 6px;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+}
 
+.card-content-overlay .location {
+    font-size: 0.8rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+.card-content-overlay .buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.card-content-overlay .buttons a {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+.card-content-overlay .btn-outline-light {
+    border: 1px solid #ccc;
+    background-color: transparent;
+    color: white;
+}
+
+.card-content-overlay .btn-outline-light:hover {
+    background-color: #fff;
+    color: #1a1a2f;
+}
+
+.card-content-overlay .btn-primary {
+    background-color: #fff;
+    color: #1a1a2f;
+    border: none;
+}
+
+.card-content-overlay .btn-primary:hover {
+    background-color: #B6BBC4;
+}
 </style>
 
-<div class="venue-item row align-items-center py-4 border-bottom">
-    <div class="col-auto">
-        <img src="{{ $image }}" alt="{{ $title }}" style="width: 160px; height: auto; border-radius: 10px;">
-    </div>
-
-    <div class="venue-info col px-4">
-        <h3 class="mb-2">{{ $title }}</h3>
-        <p class="text-muted mb-1">Jl. Pierre Tendean - Tanah Grogot</p>
-        <p class="text-muted" style="text-align: justify;">{{ $description }}</p>
-        <div class="d-flex flex-wrap gap-2 pt-2">
-            <span class="badge text-white">#Special Offer</span>
-            <span class="badge text-white">#Top Choice</span>
+<div class="card-custom">
+    <div class="image-wrapper">
+        <img src="{{$image}}" alt="GOR Bulutangkis">
+        <div class="corner-label">
+            <h2>{{$title}}
+            </h2>
         </div>
-    </div>
-
-    <!-- Garis vertikal pembatas di sisi kiri kolom actions -->
-    <div class="col-auto venue-actions ps-4 border-start" style="border-color: #ddd !important;">
-        <div class="text-center">
-            <p class="fw-semibold text-muted mb-2">Mulai dari <span class="text-dark">{{ $price }}</span></p>
-            <div class="d-flex flex-column gap-2">
-                <a href="#" class="btn btn-outline-dark btn-sm">View Options</a>
-                <a href="/select-activity" class="btn btn-dark btn-sm">Booking Now</a>
+        <div class="corner-cut"></div>
+        <div class="card-content-overlay">
+            <div class="price">{{$price}}<span>/jam</span></div>
+            <div class="badges">
+                <span class="badge">AC</span>
+                <span class="badge">Wifi</span>
+                <span class="badge">Kantin</span>
+            </div>
+            <div class="location"><i class="bi bi-geo-alt-fill me-1"></i>Jl. Pierre Tendean - Tanah Grogot</div>
+            <div class="buttons">
+                <a href="#" class="btn-outline-light">Selengkapnya</a>
+                <a href="/select-activity" class="btn btn-primary">Booking Now</a>
             </div>
         </div>
     </div>

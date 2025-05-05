@@ -7,6 +7,7 @@
     body {
         font-family: 'Poppins', sans-serif;
         background-color: #f2f4f7;
+        margin: 0;
     }
 
     a {
@@ -14,51 +15,53 @@
     }
 
     .bg-activity {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-image: url('{{ asset('img/what-the-hex.png') }}');
-        background-repeat: repeat;
-        background-size: auto;
-        padding: 30px 15px;
-        position: relative;
-    }
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 40px 16px;
+    overflow: hidden;
+    background-color: white;
+}
 
-    /* Overlay Gelap */
-    .bg-overlay {
+    .background-overlay {
+        content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4);
+        inset: 0;
+        background: url('{{ asset("img/bg-boxes.jpg") }}') no-repeat;
+        background-size: cover;
+        background-position: center;
         z-index: 0;
     }
 
-    .card-summary {
-        width: 100%;
-        max-width: 520px;
-        background-color: #fff;
-        border-radius: 20px;
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        padding: 30px 28px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
+    /* efek putih yang hanya berada di background, tidak mengganggu konten */
+    .background-overlay::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0.1) 100%);
         z-index: 1;
     }
 
+    /* card/form tetap di atas */
+    .card-summary {
+        position: relative;
+        z-index: 2;
+    }
+
+
     .header-section {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
+        gap: 10px;
     }
 
     .btn-back {
         background: none;
         border: none;
-        color: #161A30;
+        color: #0d0d0d;
         font-weight: 500;
         font-size: 15px;
         display: flex;
@@ -69,68 +72,92 @@
     }
 
     .btn-back:hover {
-        color: #000;
+        color: #0d0d0d;
+        transform: translateX(-3px);
         text-decoration: underline;
-        transform: translateX(-2px);
     }
 
     .form-section {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 20px;
     }
 
     .form-label {
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 6px;
-        color: #333;
+        color: #0d0d0d;
     }
 
     .form-select {
         border-radius: 12px;
         padding: 12px 16px;
         font-size: 1rem;
-        border: 1px solid #ced4da;
-        background-color: #f9fafb;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #555;
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #0d0d0d;
+        transition: 0.3s ease;
+        backdrop-filter: blur(10px);
     }
 
     .form-select:focus {
-        border-color: #161A30;
-        box-shadow: 0 0 0 4px rgba(22, 26, 48, 0.1);
+        outline: none;
+        border-color: #0d0d0d;
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15);
+    }
+
+    option {
+        color: #444;
     }
 
     .title-section {
         text-align: center;
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 600;
-        color: #161A30;
+        color: #0d0d0d;
+        letter-spacing: 0.5px;
+    }
+
+    .form-button {
+        display: flex;
+        justify-content: center;
     }
 
     .btn-next {
-        background-color: #161A30;
-        border: none;
+        background-color: #f0f0f0;
+        border: 1px solid #555;
         border-radius: 14px;
         padding: 12px 24px;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 15px;
-        color: #f1f1f1;
+        color: #0d0d0d;
         transition: background 0.3s ease, transform 0.2s ease;
         display: inline-block;
-        width: 100%;
+        width: 50%;
     }
 
     .btn-next:hover {
-        background-color: #b6bbc4;
-        transform: scale(1.02);
+        background-color: transparent;
+        color: #010101;
+        transform: scale(1.03);
+        border-color: #888;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>
 
 <div class="container-fluid bg-activity">
-    <!-- Overlay Gelap -->
-    <div class="bg-overlay"></div>
-
-    <div class="card-summary">
+<div class="background-overlay"></div>
+    <x-asymmetric-form class="card-summary">
         <div class="header-section">
             <a href="#" class="btn-back">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="currentColor" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
@@ -146,15 +173,16 @@
             <div>
                 <label for="jenisKegiatan" class="form-label">Jenis Kegiatan</label>
                 <select class="form-select" id="jenisKegiatan">
-                    <option selected disabled>--- Pilih Jenis Kegiatan ---</option>
+                    <option selected disabled> --- Pilih Jenis Kegiatan ---</option>
                     <option value="1">Turnamen</option>
                     <option value="2">Latihan Rutin</option>
                     <option value="3">Acara Komunitas</option>
                 </select>
             </div>
-
-            <a href="/select-date" class="btn btn-next">Lanjut Pilih Tanggal</a>
+            <div class="form-button">
+                <a href="/select-date" class="btn btn-next">Lanjut Pilih Tanggal</a>
+            </divc>
         </div>
-    </div>
+    </x-asymmetric-form>
 </div>
 @endsection
